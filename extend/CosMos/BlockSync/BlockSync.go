@@ -33,6 +33,8 @@ func Syncdata() {
 		fee := ""
 		if err != nil {
 			Log.Errs(err, tuuz.FUNCTION_ALL())
+			time.Sleep(time.Second)
+			return
 		} else {
 			block_meta, err := Jsong.ParseObject(rtt["block_meta"])
 			if err != nil {
@@ -83,7 +85,12 @@ func Syncdata() {
 				}
 			}
 		}
-		BlocksModel.Api_insert(height, timer, chain_id, block_hash, from_address, to_address, memo, amount, fee, ret)
+		if height != 0 {
+			BlocksModel.Api_insert(height, timer, chain_id, block_hash, from_address, to_address, memo, amount, fee, ret)
+		} else {
+			time.Sleep(time.Second)
+		}
+
 	}
 }
 
