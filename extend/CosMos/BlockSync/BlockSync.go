@@ -8,6 +8,7 @@ import (
 	"main.go/tuuz/Calc"
 	"main.go/tuuz/Jsong"
 	"main.go/tuuz/Log"
+	"time"
 )
 
 func Syncdata() {
@@ -64,11 +65,12 @@ func Syncdata() {
 					txss, err := Jsong.ParseSlice(data["txs"])
 
 					if err != nil || len(txss) < 1 {
-						fmt.Println(err, tuuz.FUNCTION_ALL())
+						//fmt.Println(err, tuuz.FUNCTION_ALL())
 					} else {
 						txs, err := txs_format(Calc.Any2String(txss[0]))
 						if err != nil {
 							fmt.Println(err, tuuz.FUNCTION_ALL())
+							time.Sleep(time.Second)
 							return
 						} else {
 							from_address = Calc.Any2String(txs["from_address"])
