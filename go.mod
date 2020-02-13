@@ -10,6 +10,7 @@ require (
 	github.com/gin-gonic/gin v1.5.0
 	github.com/gohouse/converter v0.0.3 // indirect
 	github.com/gohouse/gorose v1.0.5
+	github.com/gohouse/gorose/v2 v2.1.3 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/json-iterator/go v1.1.9
 	github.com/kirinlabs/HttpRequest v0.1.5
