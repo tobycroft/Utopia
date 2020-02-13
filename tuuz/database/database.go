@@ -27,7 +27,7 @@ func DbConfig() *gorose.Config {
 }
 
 func dsn() string {
-	dbname := "cosmos-test"
+	dbname := "cosmos_test"
 	dbuser := "cosmos"
 	dbpass := "cosmos"
 	dbhost := "10.0.0.170"

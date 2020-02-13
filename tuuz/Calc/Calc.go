@@ -77,7 +77,7 @@ func Any2Float64(any interface{}) float64 {
 func Any2Int(any interface{}) int {
 	ret, err := String2Int(Any2String(any))
 	if err != nil {
-		return 99999998
+		return 0
 	}
 	return ret
 }

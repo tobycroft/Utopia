@@ -1,18 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"main.go/app/v1/cosmos/model/BlocksModel"
+	"main.go/extend/CosMos/BlockSync"
 	v1 "main.go/route/v1"
 )
 
 func main() {
-	fmt.Println(BlocksModel.Api_find_last())
-	route := gin.Default()
+	BlockSync.Syncdata()
+	//fmt.Println(BlocksModel.Api_find_last())
+	//route := gin.Default()
 	//gin.SetMode(gin.ReleaseMode)
 	//gin.DefaultWriter = ioutil.Discard
-	OnRoute(route)
+	//OnRoute(route)
 	//route.Run(":80")
 }
 
