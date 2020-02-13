@@ -8,12 +8,11 @@ import (
 
 func main() {
 	BlockSync.Syncdata()
-	//fmt.Println(BlocksModel.Api_find_last())
-	//route := gin.Default()
+	route := gin.Default()
 	//gin.SetMode(gin.ReleaseMode)
 	//gin.DefaultWriter = ioutil.Discard
-	//OnRoute(route)
-	//route.Run(":80")
+	OnRoute(route)
+	route.Run(":80")
 }
 
 func OnRoute(router *gin.Engine) {
