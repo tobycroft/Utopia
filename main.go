@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	BlockSync.Syncdata()
+	go BlockSync.Syncdata()
 	route := gin.Default()
 	//gin.SetMode(gin.ReleaseMode)
 	//gin.DefaultWriter = ioutil.Discard
