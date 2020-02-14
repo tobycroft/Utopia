@@ -1,42 +1,71 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/gohouse/gorose"
-
-	"os/exec"
+	"main.go/app/v1/index/model/AddressModel"
+	"main.go/app/v1/index/model/UserModel"
+	"main.go/extend/CosMos/CosCore"
+	"main.go/tuuz"
+	"main.go/tuuz/Jsong"
+	"main.go/tuuz/RET"
 )
 
 func IndexController(route *gin.RouterGroup) {
 	route.Any("/", index)
-	route.Any("/login", loginss)
-	route.Any("/transfer", transfer)
+	route.Any("/register", register)
 }
 
 func index(c *gin.Context) {
 	c.String(0, "index")
 }
 
-func loginss(c *gin.Context) {
-	password := c.Query("password")
-	username := c.Query("username")
-	json := map[string]string{}
-	json["username"] = username
-	json["password"] = password
-	gorose.Open()
-	c.JSON(0, json)
-}
-
-func transfer(c *gin.Context) {
-	cmd := exec.Command("ltcli.exe", "tx", "send", "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv",
-		"cosmos19yfkv45mlly4n2u8609w6vda678kxgphk60q6t", "1stake", "--chain-id=lt",
-		"--memo", "dhu2387e8n2x 2yr 2o38r ow e f", "-y", "-o", "json")
-	buf, err := cmd.Output()
-	if err != nil {
-		fmt.Println(err.Error())
+func register(c *gin.Context) {
+	username, is := c.GetPostForm("username")
+	if is == false {
+		c.JSON(200, RET.Ret_fail(400, "username"))
+		c.Abort()
+		return
 	}
-	fmt.Println(string(buf))
-	//ret,err:= Jsong.JObject(string(buf))
-	c.String(200, string(buf))
+	password, is := c.GetPostForm("password")
+	if is == false {
+		c.JSON(200, RET.Ret_fail(400, "password"))
+		c.Abort()
+		return
+	}
+	if len(UserModel.Api_find_byUsername(username)) > 0 {
+		c.JSON(200, RET.Ret_fail(400, "用户名已经被注册"))
+		c.Abort()
+		return
+	}
+	ret, err := CosCore.NewAccount(username)
+	if err != nil {
+		c.JSON(200, RET.Ret_fail(500, "出现错误："+err.Error()))
+		c.Abort()
+		return
+	} else {
+		data, err := Jsong.JObject(ret)
+		if err != nil {
+			c.JSON(200, RET.Ret_fail(500, "数据解析错误："+err.Error()))
+			c.Abort()
+			return
+		} else {
+			name := data["name"].(string)
+			typ := data["type"].(string)
+			address := data["address"].(string)
+			pubkey := data["pubkey"].(string)
+			mnemonic := data["mnemonic"].(string)
+			db := tuuz.Db()
+			db.Begin()
+			if UserModel.Api_insert(username, password, "", address) != true {
+				db.Rollback()
+			} else {
+				if AddressModel.Api_insert(name, typ, address, pubkey, mnemonic, ret) != true {
+					db.Rollback()
+				}
+			}
+			db.Commit()
+		}
+		c.JSON(200, RET.Ret_succ(0, data))
+	}
+
 }

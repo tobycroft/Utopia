@@ -8,12 +8,15 @@ import (
 
 const table = "cos_user"
 
-func Api_insert(username string, password string, paypass string) bool {
-	db := tuuz.Db().Table(table)
+var Db = tuuz.Db()
+
+func Api_insert(username string, password string, paypass string, address string) bool {
+	db := Db.Table(table)
 	data := make(map[string]interface{})
 	data["username"] = username
 	data["password"] = password
 	data["paypass"] = paypass
+	data["address"] = address
 	db.Data(data)
 	_, err := db.Insert()
 	if err != nil {
@@ -25,7 +28,7 @@ func Api_insert(username string, password string, paypass string) bool {
 }
 
 func Api_find_byUsername(username string) gorose.Data {
-	db := tuuz.Db().Table(table)
+	db := Db.Table(table)
 	where := make(map[string]interface{})
 	where["username"] = username
 	db.Where(where)
@@ -39,7 +42,7 @@ func Api_find_byUsername(username string) gorose.Data {
 }
 
 func Api_find(username string, password string) gorose.Data {
-	db := tuuz.Db().Table(table)
+	db := Db.Table(table)
 	where := make(map[string]interface{})
 	where["username"] = username
 	where["password"] = password
@@ -54,7 +57,7 @@ func Api_find(username string, password string) gorose.Data {
 }
 
 func Api_find_byPaypass(username string, paypass string) gorose.Data {
-	db := tuuz.Db().Table(table)
+	db := Db.Table(table)
 	where := make(map[string]interface{})
 	where["username"] = username
 	where["paypass"] = paypass

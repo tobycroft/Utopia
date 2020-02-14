@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gohouse/gorose"
+	"main.go/tuuz/RET"
 
 	"os/exec"
 )
@@ -11,6 +12,7 @@ import (
 func IndexController(route *gin.RouterGroup) {
 	route.Any("/", index)
 	route.Any("/transfer", transfer)
+	route.Any("/write_data", write_data)
 }
 
 func index(c *gin.Context) {
@@ -25,6 +27,29 @@ func loginss(c *gin.Context) {
 	json["password"] = password
 	gorose.Open()
 	c.JSON(0, json)
+}
+
+func write_data(c *gin.Context) {
+	memo, is := c.GetPostForm("memo")
+	if is == false {
+		c.JSON(200, RET.Fail(404, "请输入memo"))
+		c.Abort()
+		return
+	}
+	address, is := c.GetPostForm("address")
+	if is == false {
+		c.JSON(200, RET.Fail(404, "请输入address"))
+		c.Abort()
+		return
+	}
+	cmd := exec.Command("ltcli.exe", "tx", "send", address, address, "1stake", "--chain-id=lt", "--memo", memo, "-y", "-o", "json")
+	buf, err := cmd.Output()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	fmt.Println(string(buf))
+	//ret,err:= Jsong.JObject(string(buf))
+	c.String(200, string(buf))
 }
 
 func transfer(c *gin.Context) {

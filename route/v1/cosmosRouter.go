@@ -11,4 +11,5 @@ func CosmosRouter(route *gin.RouterGroup) {
 	})
 
 	controller.IndexController(route.Group("/index"))
+	controller.AddressController(route.Group("/address"))
 }

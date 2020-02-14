@@ -6,7 +6,7 @@ import (
 	"main.go/tuuz/Jsong"
 )
 
-const project = "bilibili"
+const project = "cosmos"
 
 var RRedis redigo.Conn
 

@@ -3,8 +3,11 @@ package CosCore
 import (
 	"fmt"
 	"main.go/config/app_conf"
+	Calc2 "main.go/tuuz/Calc"
 	"main.go/tuuz/Net"
 	Calc "main.go/tuuz/Str"
+	"os/exec"
+	"time"
 )
 
 func Blocks(blocks int) (string, error) {
@@ -28,4 +31,16 @@ func Txs_Decode(txs string) (string, error) {
 	} else {
 		return ret.(string), err
 	}
+}
+
+func NewAccount(username string) (string, error) {
+	num := Calc2.Rand(100000, 999999)
+	name := Calc.Any2String(num)
+	ts := time.Now().Unix()
+	cmd := exec.Command("ltcli", "keys", "add", "test_"+username+"_"+name+"_"+Calc.Any2String(ts), "-o", "json")
+	buf, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	return string(buf), err
 }
