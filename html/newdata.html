@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
     <link href="//www.bootcss.com/p/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
 </head>
 <html>
@@ -11,7 +10,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="text-center">
-                CosMos-BiliHP区块链浏览器DemoSimpleUI版（OpenAPI）
+                COSMOS测试数据上传通道
             </h3>
         </div>
     </div>
@@ -32,7 +31,7 @@
                 <li class="nav-header">
                     列表标题
                 </li>
-                <li class="active">
+                <li>
                     <a href="/html">主网络</a>
                 </li>
                 <li>
@@ -44,7 +43,7 @@
                 <li class="nav-header">
                     功能列表
                 </li>
-                <li>
+                <li class="active">
                     <a href="/html/newdata.html">测试数据上传通道</a>
                 </li>
                 <li>
@@ -58,52 +57,25 @@
             </ul>
         </div>
         <div class="span10">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>
-                        区块号
-                    </th>
-                    <th>
-                        区块Hash
-                    </th>
-                    <th>
-                        交付时间
-                    </th>
-                    <th>
-                        状态
-                    </th>
-                    <th>
-                        详细
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="i in mainnet" class="success">
-                    <td>
-                        {{i.height}}
-                    </td>
-                    <td>
-                        {{i.block_hash}}
-                    </td>
-                    <td>
-                        {{i.time}}
-                    </td>
-                    <td>
-                        已发块
-                    </td>
-                    <td>
-                        <button class="btn" type="button" @click="dt(i.height)">展开区块</button>
-                    </td>
-                </tr>
-
-
-                </tbody>
-            </table>
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>
+                    提示!
+                </h4> <strong>提示! </strong> 测试数据上传后需要一段时间后即可在数据链Demo中显示
+            </div>
+            <form>
+                <fieldset>
+                    <legend>上传一个JSON或者TEXT数据</legend>
+                    <label>地址标记用户名（6-12位）</label><textarea type="text" v-model="memo" style="width:800px;height: 500px;"></textarea>
+                    <p>
+                        <span class="help-block">textarea里面的数据:{{memo}}</span>
+                    </p>
+                    <button type="button" class="btn" @click="send()">确认并生成</button>
+                </fieldset>
+            </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>
 <script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
@@ -113,31 +85,36 @@
         el: '.container-fluid',
         data: {
             seen: true,
-            mainnet: []
+            memo: "",
         },
         created: function () {
-            this.blocks()
         },
         methods: {
-            blocks() {
+            send() {
+
                 $.ajax({
                     //请求方式
-                    type: "get",
+                    type: "post",
                     //请求地址
-                    url: "/v1/cosmos/index/mainnet",
+                    url: "/v1/cosmos/index/write_demo",
                     //数据，json字符串
-                    data: {},
+                    data: {
+                        "memo": vm.memo,
+                    },
                     success: function (ret) {
-                        console.log(vm.mainnet);
-                        vm.mainnet = ret;
-                        console.log(vm.mainnet);
+                        if (ret) {
+                            if (ret.code == 0) {
+                                var data = ret.data;
+                                console.log(data)
+                            } else {
+                                alert(ret.data);
+                            }
+                        } else {
+                            alert("数据没有得到正确的返回");
+                        }
                     }
                 });
             },
-            dt(addr) {
-                // alert(ddd)
-                location.href = "detail.html?height=" + addr;
-            }
         }
     })
 </script>

@@ -7,6 +7,7 @@ import (
 	"main.go/app/v1/cosmos/model/BlocksModel"
 	"main.go/tuuz"
 	"main.go/tuuz/Calc"
+	"main.go/tuuz/Jsong"
 	"main.go/tuuz/RET"
 
 	"os/exec"
@@ -17,6 +18,7 @@ func IndexController(route *gin.RouterGroup) {
 	route.Any("/mainnet", mainnet)
 	route.Any("/transfer", transfer)
 	route.Any("/write_data", write_data)
+	route.Any("/write_demo", write_demo)
 	route.Any("/detail", detail)
 }
 
@@ -81,6 +83,36 @@ func write_data(c *gin.Context) {
 	fmt.Println(string(buf))
 	//ret,err:= Jsong.JObject(string(buf))
 	c.String(200, string(buf))
+}
+
+func write_demo(c *gin.Context) {
+	memo, is := c.GetPostForm("memo")
+	if is == false {
+		c.JSON(200, RET.Fail(404, "请输入memo"))
+		c.Abort()
+		return
+	}
+	cmd := exec.Command("ltcli.exe", "tx", "send", "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv", "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv", "1stake", "--chain-id=lt", "--memo", memo, "-y", "-o", "json")
+	buf, err := cmd.Output()
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(string(buf))
+		//ret,err:= Jsong.JObject(string(buf))
+		ret, err := Jsong.JObject(string(buf))
+		if err != nil {
+			c.JSON(200, RET.Ret_succ(0, "区块数据解析失败"))
+		} else {
+			if Calc.Any2Float64(ret["code"]) == 19 {
+				c.JSON(200, RET.Ret_succ(19, "本区块已经有数据提交了，请稍后提交"))
+			} else {
+				c.JSON(200, RET.Ret_succ(0, ret))
+			}
+
+		}
+
+	}
+
 }
 
 func transfer(c *gin.Context) {
