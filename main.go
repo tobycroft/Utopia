@@ -3,13 +3,12 @@ package main
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"main.go/extend/CosMos/BlockSync"
 	v1 "main.go/route/v1"
 	"net/http"
 )
 
 func main() {
-	go BlockSync.Syncdata()
+	//go BlockSync.Syncdata()
 	route := gin.Default()
 	route.Use(cors.Default())
 

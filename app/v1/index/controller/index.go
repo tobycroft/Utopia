@@ -32,9 +32,29 @@ func register(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	if len(password) < 6 {
+		c.JSON(200, RET.Ret_fail(400, "系统密码应该大于6位"))
+		c.Abort()
+		return
+	}
+	if len(password) > 32 {
+		c.JSON(200, RET.Ret_fail(400, "系统密码不要大于32位"))
+		c.Abort()
+		return
+	}
 	paypass, is := c.GetPostForm("paypass")
 	if is == false {
 		c.JSON(200, RET.Ret_fail(400, "paypass"))
+		c.Abort()
+		return
+	}
+	if len(paypass) < 8 {
+		c.JSON(200, RET.Ret_fail(400, "区块链地址的密码应该大于等于8位，这是COSMOS的程序最短限制"))
+		c.Abort()
+		return
+	}
+	if len(paypass) > 32 {
+		c.JSON(200, RET.Ret_fail(400, "区块链地址的密码不要超过32位"))
 		c.Abort()
 		return
 	}

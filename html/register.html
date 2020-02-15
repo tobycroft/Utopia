@@ -79,7 +79,7 @@
                     <p>
                         <span class="help-block">支付密码：{{paypass}}（填错不可找回，但可以使用Mnemonic或私钥恢复）</span>
                     </p>
-                    <button class="btn" type="submit" @click="send()">确认并生成</button>
+                    <button type="button" class="btn" @click="send()">确认并生成</button>
                 </fieldset>
             </form>
         </div>
@@ -94,25 +94,22 @@
                     {{name}}
                 </dd>
                 <dt>
-                    Vacheron Constantin
+                    Cosmos地址（请牢记）
                 </dt>
                 <dd>
-                    始创于1775年的江诗丹顿已有250年历史，
-                </dd>
-                <dd>
-                    是世界上历史最悠久、延续时间最长的名表之一。
+                    {{address}}
                 </dd>
                 <dt>
-                    IWC
+                    公钥（可记录）
                 </dt>
                 <dd>
-                    创立于1868年的万国表有“机械表专家”之称。
+                    {{pubkey}}
                 </dd>
                 <dt>
-                    Cartier
+                    CosMos助记词
                 </dt>
                 <dd>
-                    卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
+                    {{mnemonic}}
                 </dd>
             </dl>
         </div>
@@ -131,47 +128,53 @@
             password: "",
             paypass: "",
             //blk
-            name: "",
-            address: "",
-            mnemonic: "",
-            pubkey: "",
+            name: "等待生成",
+            address: "等待生成",
+            mnemonic: "等待生成",
+            pubkey: "等待生成",
         },
         created: function () {
         },
         methods: {
             send() {
+                if (this.username.length < 6 || this.username.length > 12) {
+                    alert("用户名应该大于6或者小于12");
+                    return
+                }
+                if (this.password.length < 6) {
+                    alert("密码应该大于6位");
+                    return
+                }
+                if (this.paypass.length < 8) {
+                    alert("Cosmos的地址密码应该大于12位");
+                    return
+                }
+
                 $.ajax({
                     //请求方式
                     type: "post",
                     //请求地址
-                    url: "http://localhost/v1/cosmos/address/to",
+                    url: "http://10.0.0.210/v1/index/index/register",
                     //数据，json字符串
                     data: {
-                        "address": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
+                        "username": vm.username,
+                        "password": vm.password,
+                        "paypass": vm.paypass,
                     },
                     success: function (ret) {
-                        console.log(vm.mainnet);
-                        vm.mainnet = ret;
-                        console.log(vm.mainnet);
-                    }
-                });
-            },
-            send() {
-                $.ajax({
-                    //请求方式
-                    type: "post",
-                    //请求地址
-                    url: "http://localhost/v1/index/index/register",
-                    //数据，json字符串
-                    data: {
-                        "username": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
-                        "password": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
-                        "username": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
-                    },
-                    success: function (ret) {
-                        console.log(vm.mainnet);
-                        vm.mainnet = ret;
-                        console.log(vm.mainnet);
+                        if (ret) {
+                            if (ret.code == 0) {
+                                var data = ret.data;
+                                vm.name = data.name;
+                                vm.address = data.address;
+                                vm.pubkey = data.pubkey;
+                                vm.mnemonic = data.mnemonic;
+                            } else {
+                                alert(ret.data);
+                            }
+                        } else {
+                            alert("数据没有得到正确的返回");
+                        }
                     }
                 });
             },
