@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gohouse/gorose"
+	"main.go/app/v1/cosmos/model/BlocksModel"
+	"main.go/tuuz"
+	"main.go/tuuz/Calc"
 	"main.go/tuuz/RET"
 
 	"os/exec"
@@ -11,8 +14,10 @@ import (
 
 func IndexController(route *gin.RouterGroup) {
 	route.Any("/", index)
+	route.Any("/mainnet", mainnet)
 	route.Any("/transfer", transfer)
 	route.Any("/write_data", write_data)
+	route.Any("/detail", detail)
 }
 
 func index(c *gin.Context) {
@@ -27,6 +32,32 @@ func loginss(c *gin.Context) {
 	json["password"] = password
 	gorose.Open()
 	c.JSON(0, json)
+}
+
+func mainnet(c *gin.Context) {
+	limit, had := c.GetPostForm("limit")
+	if had == false {
+		limit = "30"
+	}
+	page, had := c.GetPostForm("page")
+	if had == false {
+		page = "1"
+	}
+	BlocksModel.Db = tuuz.Db()
+	to := BlocksModel.Api_select(Calc.Any2Int(limit), Calc.Any2Int(page))
+	c.JSON(200, to)
+}
+
+func detail(c *gin.Context) {
+	height, had := c.GetQuery("height")
+	if had == false || len(height) < 1 {
+		c.JSON(200, RET.Fail(404, "请输入height"))
+		c.Abort()
+		return
+	}
+	BlocksModel.Db = tuuz.Db()
+	to := BlocksModel.Api_find_byHeight(Calc.Any2Int(height))
+	c.JSON(200, to)
 }
 
 func write_data(c *gin.Context) {

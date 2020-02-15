@@ -19,8 +19,8 @@ func init() {
 func DbConfig() *gorose.Config {
 	var conf gorose.Config
 	conf.Driver = "mysql"
-	conf.SetMaxIdleConns = 20
-	conf.SetMaxOpenConns = 120
+	conf.SetMaxIdleConns = 2
+	conf.SetMaxOpenConns = 20
 	conf.Prefix = ""
 	conf.Dsn = dsn()
 	return &conf

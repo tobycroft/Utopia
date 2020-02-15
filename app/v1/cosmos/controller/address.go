@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"main.go/app/v1/cosmos/model/BlocksModel"
+	"main.go/tuuz"
 	"main.go/tuuz/Calc"
 	"main.go/tuuz/RET"
 )
@@ -31,6 +32,7 @@ func to(c *gin.Context) {
 	if had == false {
 		page = "1"
 	}
+	BlocksModel.Db = tuuz.Db()
 	to := BlocksModel.Api_select_byToAddress(address, Calc.Any2Int(limit), Calc.Any2Int(page))
 	c.JSON(200, to)
 }
@@ -50,6 +52,7 @@ func to_clean(c *gin.Context) {
 	if had == false {
 		page = "1"
 	}
+	BlocksModel.Db = tuuz.Db()
 	to := BlocksModel.Api_select_byToAddress(address, Calc.Any2Int(limit), Calc.Any2Int(page))
 	if len(to) > 0 {
 		for i, data := range to {
@@ -75,6 +78,7 @@ func from(c *gin.Context) {
 	if had == false {
 		page = "1"
 	}
+	BlocksModel.Db = tuuz.Db()
 	from := BlocksModel.Api_select_byFromAddress(address, Calc.Any2Int(limit), Calc.Any2Int(page))
 	c.JSON(200, from)
 }
@@ -94,6 +98,7 @@ func from_clean(c *gin.Context) {
 	if had == false {
 		page = "1"
 	}
+	BlocksModel.Db = tuuz.Db()
 	from := BlocksModel.Api_select_byFromAddress(address, Calc.Any2Int(limit), Calc.Any2Int(page))
 	if len(from) > 0 {
 		for i, data := range from {
@@ -119,6 +124,7 @@ func to_memo(c *gin.Context) {
 	if had == false {
 		page = "1"
 	}
+	BlocksModel.Db = tuuz.Db()
 	to := BlocksModel.Api_select_byToAddress(address, Calc.Any2Int(limit), Calc.Any2Int(page))
 	arr := []map[string]interface{}{}
 	if len(to) > 0 {

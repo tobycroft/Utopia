@@ -32,6 +32,7 @@ func register(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	UserModel.Db = tuuz.Db()
 	if len(UserModel.Api_find_byUsername(username)) > 0 {
 		c.JSON(200, RET.Ret_fail(400, "用户名已经被注册"))
 		c.Abort()
@@ -55,6 +56,7 @@ func register(c *gin.Context) {
 			pubkey := data["pubkey"].(string)
 			mnemonic := data["mnemonic"].(string)
 			db := tuuz.Db()
+			UserModel.Db, AddressModel.Db = db, db
 			db.Begin()
 			if UserModel.Api_insert(username, password, "", address) != true {
 				db.Rollback()

@@ -13,6 +13,7 @@ import (
 
 func Syncdata() {
 	defer Syncdata()
+	BlocksModel.Db = tuuz.Db()
 	lastblock := BlocksModel.Api_find_last()
 	height := 1
 	if len(lastblock) > 0 {
@@ -57,6 +58,10 @@ func Syncdata() {
 				} else {
 					timer = Calc.Any2String(header["time"])
 					height = Calc.Any2Int(header["height"])
+					if height < Calc.Any2Int(lastblock["height"]) {
+						time.Sleep(time.Second)
+						return
+					}
 					chain_id = Calc.Any2String(header["chain_id"])
 				}
 
@@ -86,6 +91,7 @@ func Syncdata() {
 			}
 		}
 		if height != 0 {
+			BlocksModel.Db = tuuz.Db()
 			BlocksModel.Api_insert(height, timer, chain_id, block_hash, from_address, to_address, memo, amount, fee, ret)
 		} else {
 			time.Sleep(time.Second)

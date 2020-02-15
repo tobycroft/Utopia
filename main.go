@@ -5,12 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"main.go/extend/CosMos/BlockSync"
 	v1 "main.go/route/v1"
+	"net/http"
 )
 
 func main() {
 	go BlockSync.Syncdata()
 	route := gin.Default()
 	route.Use(cors.Default())
+
 	//gin.SetMode(gin.ReleaseMode)
 	//gin.DefaultWriter = ioutil.Discard
 	OnRoute(route)
@@ -18,9 +20,10 @@ func main() {
 }
 
 func OnRoute(router *gin.Engine) {
-	router.Any("/", func(context *gin.Context) {
-		context.String(0, router.BasePath())
-	})
+	//router.LoadHTMLGlob("html/*")
+
+	router.StaticFS("/html", http.Dir("./html"))
+	//http.Handle("/html/", http.StripPrefix("/html/", fsh))
 	version1 := router.Group("/v1")
 	{
 		version1.Any("/", func(context *gin.Context) {

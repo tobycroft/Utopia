@@ -40,6 +40,21 @@ func Api_find(height float64) gorose.Data {
 	db.Where(where)
 	ret, err := db.First()
 	if err != nil {
+		Log.Dbrr(err, tuuz.FUNCTION_ALL())
+		return nil
+	} else {
+		return ret
+	}
+}
+
+func Api_find_byHeight(id int) gorose.Data {
+	db := Db.Table(table)
+	where := make(map[string]interface{})
+	where["height"] = uint(id)
+	db.Where(where)
+	ret, err := db.First()
+	if err != nil {
+		Log.Dbrr(err, tuuz.FUNCTION_ALL())
 		return nil
 	} else {
 		return ret
@@ -48,7 +63,7 @@ func Api_find(height float64) gorose.Data {
 
 func Api_find_last() gorose.Data {
 	db := Db.Table(table)
-	db.OrderBy("height desc")
+	db.OrderBy("id desc")
 	ret, err := db.First()
 	if err != nil {
 		Log.Dbrr(err, tuuz.FUNCTION_ALL())

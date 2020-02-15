@@ -11,7 +11,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="text-center">
-                CosMos-BiliHP区块链浏览器DemoSimpleUI版（OpenAPI）
+               JSON数据链展示
             </h3>
         </div>
     </div>
@@ -68,7 +68,7 @@
                         区块Hash
                     </th>
                     <th>
-                        交付时间
+                        JSON数据
                     </th>
                     <th>
                         状态
@@ -87,7 +87,7 @@
                         {{i.block_hash}}
                     </td>
                     <td>
-                        {{i.time}}
+                        {{i.memo}}
                     </td>
                     <td>
                         已发块
@@ -122,11 +122,13 @@
             blocks() {
                 $.ajax({
                     //请求方式
-                    type: "get",
+                    type: "post",
                     //请求地址
-                    url: "http://localhost/v1/cosmos/index/mainnet",
+                    url: "http://localhost/v1/cosmos/address/to",
                     //数据，json字符串
-                    data: {},
+                    data: {
+                        "address":"cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
+                    },
                     success: function (ret) {
                         console.log(vm.mainnet);
                         vm.mainnet = ret;
