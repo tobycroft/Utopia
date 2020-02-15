@@ -11,7 +11,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="text-center">
-               JSON数据链展示
+                JSON数据链展示
             </h3>
         </div>
     </div>
@@ -32,14 +32,14 @@
                 <li class="nav-header">
                     列表标题
                 </li>
-                <li class="active">
+                <li>
                     <a href="/html">主网络</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/html/datalink.html">数据链Demo</a>
                 </li>
                 <li>
-                    <a href="#">应用</a>
+                    <a href="/html/register.html">注册</a>
                 </li>
                 <li class="nav-header">
                     功能列表
@@ -127,7 +127,7 @@
                     url: "http://localhost/v1/cosmos/address/to",
                     //数据，json字符串
                     data: {
-                        "address":"cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
+                        "address": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
                     },
                     success: function (ret) {
                         console.log(vm.mainnet);

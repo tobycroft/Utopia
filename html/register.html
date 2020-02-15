@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <link href="//www.bootcss.com/p/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
+</head>
+<html>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h3 class="text-center">
+                CosMos地址生成
+            </h3>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2">
+            <form class="form-search">
+                <p>
+                    输入目标地址
+                </p>
+                <p>
+                    <input class="input-medium search-query" type="text"/>
+                </p>
+                <p>
+                    <button class="btn" type="submit">查找</button>
+                </p>
+            </form>
+            <ul class="nav nav-list">
+                <li class="nav-header">
+                    列表标题
+                </li>
+                <li>
+                    <a href="/html">主网络</a>
+                </li>
+                <li>
+                    <a href="/html/datalink.html">数据链Demo</a>
+                </li>
+                <li class="active">
+                    <a href="/html/register.html">注册</a>
+                </li>
+                <li class="nav-header">
+                    功能列表
+                </li>
+                <li>
+                    <a href="#">资料</a>
+                </li>
+                <li>
+                    <a href="#">设置</a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    <a href="#">帮助</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span10">
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>
+                    提示!
+                </h4> <strong>警告!</strong> 请务必保留注册信息中的Mnemonics！丢失后地址将会无法找回！
+            </div>
+            <form>
+                <fieldset>
+                    <legend>生成区块链地址</legend>
+                    <label>地址标记用户名（6-12位）</label><input type="text" v-model="username"/>
+                    <p>
+                        <span class="help-block">这里填写的内容位地址标记注册用户名:{{username}}</span>
+                    </p>
+                    <label>CosMos前置系统密码（一般用于登录）</label><input type="text" v-model="password"/>
+                    <p>
+                        <span class="help-block">这里填写密码：{{password}}（填错可找回）</span>
+                    </p>
+                    <label>地址支付密码（一般用于上传数据）</label><input type="text" v-model="paypass"/>
+                    <p>
+                        <span class="help-block">支付密码：{{paypass}}（填错不可找回，但可以使用Mnemonic或私钥恢复）</span>
+                    </p>
+                    <button class="btn" type="submit" @click="send()">确认并生成</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <dl>
+                <dt>
+                    Cosmos用户名称：
+                </dt>
+                <dd>
+                    {{name}}
+                </dd>
+                <dt>
+                    Vacheron Constantin
+                </dt>
+                <dd>
+                    始创于1775年的江诗丹顿已有250年历史，
+                </dd>
+                <dd>
+                    是世界上历史最悠久、延续时间最长的名表之一。
+                </dd>
+                <dt>
+                    IWC
+                </dt>
+                <dd>
+                    创立于1868年的万国表有“机械表专家”之称。
+                </dd>
+                <dt>
+                    Cartier
+                </dt>
+                <dd>
+                    卡地亚拥有150多年历史，是法国珠宝金银首饰的制造名家。
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '.container-fluid',
+        data: {
+            seen: true,
+            username: "",
+            password: "",
+            paypass: "",
+            //blk
+            name: "",
+            address: "",
+            mnemonic: "",
+            pubkey: "",
+        },
+        created: function () {
+        },
+        methods: {
+            send() {
+                $.ajax({
+                    //请求方式
+                    type: "post",
+                    //请求地址
+                    url: "http://localhost/v1/cosmos/address/to",
+                    //数据，json字符串
+                    data: {
+                        "address": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
+                    },
+                    success: function (ret) {
+                        console.log(vm.mainnet);
+                        vm.mainnet = ret;
+                        console.log(vm.mainnet);
+                    }
+                });
+            },
+            send() {
+                $.ajax({
+                    //请求方式
+                    type: "post",
+                    //请求地址
+                    url: "http://localhost/v1/index/index/register",
+                    //数据，json字符串
+                    data: {
+                        "username": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
+                        "password": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
+                        "username": "cosmos13v60v23sheck50em6jlvdqmmgkmp2n0qqrchsv"
+                    },
+                    success: function (ret) {
+                        console.log(vm.mainnet);
+                        vm.mainnet = ret;
+                        console.log(vm.mainnet);
+                    }
+                });
+            },
+        }
+    })
+</script>
+</body>
+</html>

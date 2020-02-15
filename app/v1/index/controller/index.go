@@ -32,6 +32,12 @@ func register(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	paypass, is := c.GetPostForm("paypass")
+	if is == false {
+		c.JSON(200, RET.Ret_fail(400, "paypass"))
+		c.Abort()
+		return
+	}
 	UserModel.Db = tuuz.Db()
 	if len(UserModel.Api_find_byUsername(username)) > 0 {
 		c.JSON(200, RET.Ret_fail(400, "用户名已经被注册"))
@@ -58,7 +64,7 @@ func register(c *gin.Context) {
 			db := tuuz.Db()
 			UserModel.Db, AddressModel.Db = db, db
 			db.Begin()
-			if UserModel.Api_insert(username, password, "", address) != true {
+			if UserModel.Api_insert(username, password, paypass, address) != true {
 				db.Rollback()
 			} else {
 				if AddressModel.Api_insert(name, typ, address, pubkey, mnemonic, ret) != true {
