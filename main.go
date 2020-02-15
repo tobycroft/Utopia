@@ -19,10 +19,7 @@ func main() {
 }
 
 func OnRoute(router *gin.Engine) {
-	//router.LoadHTMLGlob("html/*")
-
 	router.StaticFS("/html", http.Dir("./html"))
-	//http.Handle("/html/", http.StripPrefix("/html/", fsh))
 	version1 := router.Group("/v1")
 	{
 		version1.Any("/", func(context *gin.Context) {
