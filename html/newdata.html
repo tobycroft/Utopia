@@ -104,8 +104,7 @@
                     success: function (ret) {
                         if (ret) {
                             if (ret.code == 0) {
-                                var data = ret.data;
-                                console.log(data)
+                                alert("上传完毕，数据已经打包，稍后将在Demo中显示");
                             } else {
                                 alert(ret.data);
                             }
