@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"main.go/extend/CosMos/BlockSync"
 	v1 "main.go/route/v1"
@@ -9,6 +10,7 @@ import (
 func main() {
 	go BlockSync.Syncdata()
 	route := gin.Default()
+	route.Use(cors.Default())
 	//gin.SetMode(gin.ReleaseMode)
 	//gin.DefaultWriter = ioutil.Discard
 	OnRoute(route)
