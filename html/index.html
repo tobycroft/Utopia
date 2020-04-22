@@ -222,6 +222,39 @@
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 
 <script>
+    var vm = new Vue({
+        el: '.container-fluid',
+        data: {
+            seen: true,
+            mainnet: []
+        },
+        created: function () {
+            this.blocks()
+        },
+        methods: {
+            blocks() {
+                $.ajax({
+                    //请求方式
+                    type: "get",
+                    //请求地址
+                    url: "/v1/cosmos/index/mainnet",
+                    //数据，json字符串
+                    data: {},
+                    success: function (ret) {
+                        console.log(vm.mainnet);
+                        vm.mainnet = ret;
+                        console.log(vm.mainnet);
+                    }
+                });
+            },
+            dt(addr) {
+                // alert(ddd)
+                location.href = "detail.html?height=" + addr;
+            }
+        }
+    })
+
+    
     var myChart = echarts.init(document.getElementById('main'));
     var option = {
         color: ['#c7d6d2'],
