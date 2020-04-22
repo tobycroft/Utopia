@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=1220">
+    <meta name="format-detection" content="telphone=no, email=no" />
+    <title set-lang="text:invite_register"></title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <header>
+                <div class="header">
+                    <div class="header-left">布比区块链浏览器</div>
+                    <div class="header-middle">
+                        <div class="header-search">
+                            <input type="text" placeholder="区块高度、交易哈希、账户地址" class="search-input">
+                            <div class="search-btn"></div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="nav">
+                            <a href="index.html">首页</a>
+                            <a href="transaction.html">交易列表</a>
+                            <a href="#" class="active">资产</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="container">
+                <div class="container-box">
+                    <div class="main-box">
+                        <div class="main-box-header bd-bottom">
+                            <div class="title">资产 <label>体验资产</label></div>
+                        </div>
+                        <div class="assets-detail-cont">
+                            <div class="tips">
+                                体验资产是布比区块链体验链中发行的区块链资产，用于用户体验数字资产如何在区块链中流通
+                            </div>
+                            <div class="assets-table">
+                                <div class="assets-item">
+                                    <div>发行总量</div>
+                                    <div><span>10000000000 EA</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>类型</div>
+                                    <div><span>ATP 增发型</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>发行方地址</div>
+                                    <div><span>adxSY1MPKsSzWhyCWTNA27ThP1CBxuzHRoNue</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>精度</div>
+                                    <div><span>8</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>拥有资产地址数</div>
+                                    <div><span>4</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>交易笔数</div>
+                                    <div><span>3</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assets-detail-table">
+                        <div class="table-menu">
+                            <a :class="{'active': type==1}" @click="chooseType(1)">交易列表</a>
+                            <a :class="{'active': type==2}" @click="chooseType(2)">持有资产地址列表</a>
+                            <a :class="{'active': type==3}" @click="chooseType(3)">发行记录</a>
+                        </div>
+                        <div class="table-cont">
+                            <!--交易列表-->
+                            <div class="jiaoyi" v-show="type == 1">
+                                <div class="jiaoyi-item">
+                                    <div>时间</div>
+                                    <div>所在区块</div>
+                                    <div>交易类型</div>
+                                    <div>源用户</div>
+                                    <div>目的账户</div>
+                                    <div>数量</div>
+                                    <div>交易哈希</div>
+                                    <div>状态</div>
+                                </div>
+            
+                                <div class="jiaoyi-item">
+                                    <div>2020.04.20 16:36:18</div>
+                                    <div><a>16232</a></div>
+                                    <div><span>Gasn</span></div>
+                                    <div><a>adxSkA***5tdXet</a></div>
+                                    <div><a>adxSkA***5tdXet</a></div>
+                                    <div>0.1GAS</div>
+                                    <div><a>9190b298913faae33790</a></div>
+                                    <div>成功</div>
+                                </div>
+                                <div class="jiaoyi-item">
+                                    <div>2020.04.20 16:36:18</div>
+                                    <div><a>16232</a></div>
+                                    <div><span>Gasn</span></div>
+                                    <div><a>adxSkA***5tdXet</a></div>
+                                    <div><a>adxSkA***5tdXet</a></div>
+                                    <div>0.1GAS</div>
+                                    <div><a>9190b298913faae33790</a></div>
+                                    <div>成功</div>
+                                </div>
+                                <div class="jiaoyi-item">
+                                    <div>2020.04.20 16:36:18</div>
+                                    <div><a>16232</a></div>
+                                    <div><span>Gasn</span></div>
+                                    <div><a>adxSkA***5tdXet</a></div>
+                                    <div><a>adxSkA***5tdXet</a></div>
+                                    <div>0.1GAS</div>
+                                    <div><a>9190b298913faae33790</a></div>
+                                    <div>成功</div>
+                                </div>
+                            </div>
+                            <!--持有资产地址列表-->
+                            <div class="jiaoyi" v-show="type == 2">
+                                <div class="jiaoyi-item">
+                                    <div>账户地址</div>
+                                    <div>资产持有量</div>
+                                    <div>占总发行量的比例</div>
+                                </div>
+            
+                                <div class="jiaoyi-item">
+                                    <div>adxSY1MPKsSzWhyCWTNA27ThP1CBxuzHRoNue</div>
+                                    <div>9999998889.9</div>
+                                    <div>99.999989%</div>
+                                </div>
+                                <div class="jiaoyi-item">
+                                    <div>adxSY1MPKsSzWhyCWTNA27ThP1CBxuzHRoNue</div>
+                                    <div>9999998889.9</div>
+                                    <div>99.999989%</div>
+                                </div>
+                                <div class="jiaoyi-item">
+                                    <div>adxSY1MPKsSzWhyCWTNA27ThP1CBxuzHRoNue</div>
+                                    <div>9999998889.9</div>
+                                    <div>99.999989%</div>
+                                </div>
+                                <div class="jiaoyi-item">
+                                    <div>adxSY1MPKsSzWhyCWTNA27ThP1CBxuzHRoNue</div>
+                                    <div>9999998889.9</div>
+                                    <div>99.999989%</div>
+                                </div>
+                            </div>
+                            <!--发行记录-->
+                            <div class="faxingjilu" v-show="type == 3">
+                                <div class="item">
+                                    <div class="item-row">
+                                        <div><span>数量</span></div>
+                                        <div>5,000,000,000</div>
+                                    </div>
+                                    <div class="item-row">
+                                        <div><span>交易哈希</span></div>
+                                        <div>6b35946c45f00160c38b38408049f910ed603926d1752164cbb25d13dbc41535</div>
+                                    </div>
+                                    <div class="item-row">
+                                        <div><span>发行时间</span></div>
+                                        <div>2020-03-06 21:15:21</div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="item-row">
+                                        <div><span>数量</span></div>
+                                        <div>5,000,000,000</div>
+                                    </div>
+                                    <div class="item-row">
+                                        <div><span>交易哈希</span></div>
+                                        <div>6b35946c45f00160c38b38408049f910ed603926d1752164cbb25d13dbc41535</div>
+                                    </div>
+                                    <div class="item-row">
+                                        <div><span>发行时间</span></div>
+                                        <div>2020-03-06 21:15:21</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer>
+                <div class="footer">
+                    Copyright © 2020 布比区块链
+                </div>
+            </footer>
+        </template>
+    </div>
+    
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <script>
+        $(function(){
+            initEvent();
+        });
+        function initEvent(){
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    type: 1,
+                },
+                methods: {
+                    chooseType: function(type){
+                        this.type = type;
+                    }
+                }
+            })
+        }
+    </script>
+   
+</body>
+    
+</html>

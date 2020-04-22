@@ -1,145 +1,269 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-
-    <link href="//www.bootcss.com/p/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=1220">
+    <meta name="format-detection" content="telphone=no, email=no" />
+    <title set-lang="text:invite_register"></title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-<html>
+
 <body>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <h3 class="text-center">
-                CosMos-BiliHP区块链浏览器DemoSimpleUI版（OpenAPI）
-            </h3>
+    <header>
+        <div class="header">
+            <div class="header-left">布比区块链浏览器</div>
+            <div class="header-middle">
+                <div class="header-search">
+                    <input type="text" placeholder="区块高度、交易哈希、账户地址" class="search-input">
+                    <div class="search-btn"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="nav">
+                    <a href="#" class="active">首页</a>
+                    <a href="transaction.html">交易列表</a>
+                    <a href="assets.html">资产</a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span2">
-            <form class="form-search">
-                <p>
-                    输入目标地址
-                </p>
-                <p>
-                    <input class="input-medium search-query" type="text"/>
-                </p>
-                <p>
-                    <button class="btn" type="submit">查找</button>
-                </p>
-            </form>
-            <ul class="nav nav-list">
-                <li class="nav-header">
-                    列表标题
-                </li>
-                <li class="active">
-                    <a href="/html">主网络</a>
-                </li>
-                <li>
-                    <a href="/html/datalink.html">数据链Demo</a>
-                </li>
-                <li>
-                    <a href="/html/register.html">注册</a>
-                </li>
-                <li class="nav-header">
-                    功能列表
-                </li>
-                <li>
-                    <a href="/html/newdata.html">测试数据上传通道</a>
-                </li>
-                <li>
-                    <a href="#">设置</a>
-                </li>
-                <li class="divider">
-                </li>
-                <li>
-                    <a href="#">帮助</a>
-                </li>
-            </ul>
+    </header>
+    <section class="container">
+        <div class="container-box">
+            <div class="main-box">
+                <div class="main-box-header">
+                    <div class="title">概览</div>
+                </div>
+                <div class="main-box-cont">
+                    <div class="gailan">
+                        <div class="item">
+                            <h3>区块高度</h3>
+                            <p>160007</p>
+                        </div>
+                        <div class="item">
+                            <h3>区块平均生成时间</h3>
+                            <p>24s</p>
+                        </div>
+                        <div class="item">
+                            <h3>总交易数</h3>
+                            <p>7234</p>
+                        </div>
+                        <div class="item">
+                            <h3>总账户数</h3>
+                            <p>71751</p>
+                        </div>
+                        <div class="item">
+                            <h3>实时节点数</h3>
+                            <p>8</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-box">
+                <div class="main-box-header">
+                    <div class="title">区块<span>(最新生成)</span></div>
+                </div>
+                <div class="main-box-cont">
+                    <div data-v-18b1df0a="" class="block-box">
+                        <div data-v-18b1df0a="" class="block-cont">
+                            <div data-v-18b1df0a="" class="block-list">
+                                <div data-v-18b1df0a="">
+                                    <div data-v-18b1df0a="" class="block-list-item">
+                                        <div data-v-18b1df0a="" class="top">
+                                            <div data-v-18b1df0a="" class="hover-pointer">#160021</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="btm">
+                                            <div data-v-18b1df0a="" class="tx-num">1 Txns</div>
+                                            <div data-v-18b1df0a="" class="time">10s ago</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="item-before">
+                                            <div data-v-18b1df0a="" class="line"></div>
+                                            <div data-v-18b1df0a="" class="ball"></div>
+                                        </div>
+                                    </div>
+                                    <div data-v-18b1df0a="" class="block-list-item">
+                                        <div data-v-18b1df0a="" class="top">
+                                            <div data-v-18b1df0a="" class="hover-pointer">#160021</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="btm">
+                                            <div data-v-18b1df0a="" class="tx-num">1 Txns</div>
+                                            <div data-v-18b1df0a="" class="time">10s ago</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="item-before">
+                                            <div data-v-18b1df0a="" class="line"></div>
+                                            <div data-v-18b1df0a="" class="ball"></div>
+                                        </div>
+                                    </div>
+                                    <div data-v-18b1df0a="" class="block-list-item" style="">
+                                        <div data-v-18b1df0a="" class="top">
+                                            <div data-v-18b1df0a="" class="hover-pointer">#160020</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="btm">
+                                            <div data-v-18b1df0a="" class="tx-num">0 Txns</div>
+                                            <div data-v-18b1df0a="" class="time">22s ago</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="item-before">
+                                            <div data-v-18b1df0a="" class="line"></div>
+                                            <div data-v-18b1df0a="" class="ball"></div>
+                                        </div>
+                                    </div>
+                                    <div data-v-18b1df0a="" class="block-list-item block-list-enter-to" style="">
+                                        <div data-v-18b1df0a="" class="top">
+                                            <div data-v-18b1df0a="" class="hover-pointer">#160019</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="btm">
+                                            <div data-v-18b1df0a="" class="tx-num">1 Txns</div>
+                                            <div data-v-18b1df0a="" class="time">1min ago</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="item-before">
+                                            <div data-v-18b1df0a="" class="line"></div>
+                                            <div data-v-18b1df0a="" class="ball"></div>
+                                        </div>
+                                    </div>
+                                    <div data-v-18b1df0a="" class="block-list-item block-list-enter-to" style="">
+                                        <div data-v-18b1df0a="" class="top">
+                                            <div data-v-18b1df0a="" class="hover-pointer">#160018</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="btm">
+                                            <div data-v-18b1df0a="" class="tx-num">1 Txns</div>
+                                            <div data-v-18b1df0a="" class="time">1min ago</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="item-before">
+                                            <div data-v-18b1df0a="" class="line"></div>
+                                            <div data-v-18b1df0a="" class="ball"></div>
+                                        </div>
+                                    </div>
+                                    <div data-v-18b1df0a="" class="block-list-item" style="">
+                                        <div data-v-18b1df0a="" class="top">
+                                            <div data-v-18b1df0a="" class="hover-pointer">#160017</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="btm">
+                                            <div data-v-18b1df0a="" class="tx-num">0 Txns</div>
+                                            <div data-v-18b1df0a="" class="time">2min ago</div>
+                                        </div>
+                                        <div data-v-18b1df0a="" class="item-before">
+                                            <div data-v-18b1df0a="" class="line"></div>
+                                            <div data-v-18b1df0a="" class="ball"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-time">
+                        <div class="title">区块生成时间</div>
+                        <div class="content" id="main">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-box">
+                <div class="main-box-header">
+                    <div class="title">交易<span>(最新生成)</span></div>
+                    <div class="more"><a href="#">更多 >></a></div>
+                </div>
+                <div class="jiaoyi">
+                    <div class="jiaoyi-item">
+                        <div>时间</div>
+                        <div>所在区块</div>
+                        <div>交易类型</div>
+                        <div>源用户</div>
+                        <div>目的账户</div>
+                        <div>数量</div>
+                        <div>交易哈希</div>
+                        <div>状态</div>
+                    </div>
+
+                    <div class="jiaoyi-item">
+                        <div>2020.04.20 16:36:18</div>
+                        <div><a href="block_detail.html">16232</a></div>
+                        <div><span>Gasn</span></div>
+                        <div><a>adxSkA***5tdXet</a> <label>OUT</label></div>
+                        <div><a>adxSkA***5tdXet</a></div>
+                        <div>0.1GAS</div>
+                        <div><a>9190b298913faae33790</a></div>
+                        <div>成功</div>
+                    </div>
+                    <div class="jiaoyi-item">
+                        <div>2020.04.20 16:36:18</div>
+                        <div><a>16232</a></div>
+                        <div><span>Gasn</span></div>
+                        <div><a>adxSkA***5tdXet</a> <label>IN</label></div>
+                        <div><a>adxSkA***5tdXet</a></div>
+                        <div>0.1GAS</div>
+                        <div><a>9190b298913faae33790</a></div>
+                        <div>成功</div>
+                    </div>
+                    <div class="jiaoyi-item">
+                        <div>2020.04.20 16:36:18</div>
+                        <div><a>16232</a></div>
+                        <div><span>Gasn</span></div>
+                        <div><a>adxSkA***5tdXet</a></div>
+                        <div><a>adxSkA***5tdXet</a></div>
+                        <div>0.1GAS</div>
+                        <div><a>9190b298913faae33790</a></div>
+                        <div>成功</div>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-        <div class="span10">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>
-                        区块号
-                    </th>
-                    <th>
-                        区块Hash
-                    </th>
-                    <th>
-                        交付时间
-                    </th>
-                    <th>
-                        状态
-                    </th>
-                    <th>
-                        详细
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="i in mainnet" class="success">
-                    <td>
-                        {{i.height}}
-                    </td>
-                    <td>
-                        {{i.block_hash}}
-                    </td>
-                    <td>
-                        {{i.time}}
-                    </td>
-                    <td>
-                        已发块
-                    </td>
-                    <td>
-                        <button class="btn" type="button" @click="dt(i.height)">展开区块</button>
-                    </td>
-                </tr>
-
-
-                </tbody>
-            </table>
+    </section>
+    <footer>
+        <div class="footer">
+            Copyright © 2020 布比区块链
         </div>
-    </div>
-</div>
+    </footer>
 
-</body>
-</html>
-<script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
-<script>
-    var vm = new Vue({
-        el: '.container-fluid',
-        data: {
-            seen: true,
-            mainnet: []
-        },
-        created: function () {
-            this.blocks()
-        },
-        methods: {
-            blocks() {
-                $.ajax({
-                    //请求方式
-                    type: "get",
-                    //请求地址
-                    url: "/v1/cosmos/index/mainnet",
-                    //数据，json字符串
-                    data: {},
-                    success: function (ret) {
-                        console.log(vm.mainnet);
-                        vm.mainnet = ret;
-                        console.log(vm.mainnet);
-                    }
-                });
+    <script src="./js/echarts.min.js"></script>
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            color: ['#c7d6d2'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
             },
-            dt(addr) {
-                // alert(ddd)
-                location.href = "detail.html?height=" + addr;
-            }
-        }
-    })
-</script>
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    show : false,
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    show : false,
+                    type: 'value',
+                }
+            ],
+            series: [
+                {
+                    name: '直接访问',
+                    type: 'bar',
+                    barWidth: '30%',
+                    barMaxWidth: 50,
+                    data: [10, 52, 200, 334, 390, 330, 220,10, 52, 200, 334, 390, 330, 220,10, 52, 200, 334, 390, 330, 220, 334, 390, 330, 220]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
 </body>
+    
 </html>

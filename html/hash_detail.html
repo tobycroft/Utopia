@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=1220">
+    <meta name="format-detection" content="telphone=no, email=no" />
+    <title set-lang="text:invite_register"></title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <header>
+                <div class="header">
+                    <div class="header-left">布比区块链浏览器</div>
+                    <div class="header-middle">
+                        <div class="header-search">
+                            <input type="text" placeholder="区块高度、交易哈希、账户地址" class="search-input">
+                            <div class="search-btn"></div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="nav">
+                            <a href="index.html">首页</a>
+                            <a href="transaction.html">交易列表</a>
+                            <a href="#" class="active">资产</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="container">
+                <div class="container-box">
+                    <div class="main-box">
+                        <div class="main-box-header bd-bottom">
+                            <div class="title">交易哈希 ：4734e0b8907e10cc1910e5cca2a071117c46c8b0b4fc406d5881d260124b8f1a</div>
+                        </div>
+                        <div class="assets-detail-cont">
+                            <div class="assets-table">
+                                <div class="assets-item">
+                                    <div>时间</div>
+                                    <div><span>2020.04.21 11:05:38</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>区块高度</div>
+                                    <div><a>162195</a></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>区块高度</div>
+                                    <div><span>162088</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>交易状态</div>
+                                    <div><span>成功</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>交易费用</div>
+                                    <div><span>0.00583 Gas</span></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>发起人账户地址</div>
+                                    <div><a>adxSXWv1yvAydE3NveF7fLoGMrVVf4KBUSPB3</a></div>
+                                </div>
+                                <div class="assets-item">
+                                    <div>签名者</div>
+                                    <div><span>
+                                        [{"publicKey":"b001e36f3318912aa62da9fd40dcf0a742f9a020403845b24d1e980151ceaadc978b63c1d7a6","signData":"0dba3c3a61055f6012bc308826b5ca965e1464be9d00c6ac2f7a70bcb4e3eee5944d36cb28a164c7f3aca3dc6be13b2b0eaabdc01422fea8c35e3cd74d550f02"},{"publicKey":"b001d76fd0255d8947d3f0f89c57b10ece02537f8b0f264c9b8e488afaa82ab1ee5c468bd7e4","signData":"8e236146157391de7b16920e48979ca0a0f9a26094fcb0e91d3746ec18ed50ffbbe43267dcd784461dad03e0439dad279075fd1e70b54161bdd12c004c56d30b"},{"publicKey":"b001880aaefb284051505c201519370048603580c6f6b55cbd98db341b198ce31fae47177031","signData":"ed988a66678fade873580fde33d3e44931d19b7a0f3ad83368d7f582135163f04548a1219a7ed6d45879eb6034413c572327b9c111ffb6d10fe3ea5da79d3405"}]</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hash-handle">
+                            <div class="hash-title">操作<span>（操作指创建账户、转账、调用合约、发行资产等）</span></div>
+                            <div class="hash-detail-table">
+                                <div class="table-menu">
+                                    <a :class="{'active': type==1}" @click="chooseType(1)">转移Gas</a>
+                                    <a :class="{'active': type==2}" @click="chooseType(2)">转入Gas</a>
+                                </div>
+                                <div class="table-cont">
+                                    <div class="faxingjilu" v-show="type == 1">
+                                        <div class="item">
+                                            <div class="item-row">
+                                                <div><span>源账户地址</span></div>
+                                                <div><a>adxSkAotRdH3mhKyLpkk6BDumuUdmfc5tdXet</a></div>
+                                            </div>
+                                            <div class="item-row">
+                                                <div><span>目的账户地址</span></div>
+                                                <div><a>adxSjKNnvASyGepB2xpz1Zm56ZbPWsfBZz71t</a></div>
+                                            </div>
+                                            <div class="item-row">
+                                                <div><span>Gas数量</span></div>
+                                                <div>0.1 Gas</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="faxingjilu" v-show="type == 2">
+                                        <div class="item">
+                                            <div class="item-row">
+                                                <div><span>源账户地址</span></div>
+                                                <div><a>adxSkAotRdH3mhKyLpkk6BDumuUdmfc5tdXet</a></div>
+                                            </div>
+                                            <div class="item-row">
+                                                <div><span>目的账户地址</span></div>
+                                                <div><a>adxSjKNnvASyGepB2xpz1Zm56ZbPWsfBZz71t</a></div>
+                                            </div>
+                                            <div class="item-row">
+                                                <div><span>Gas数量</span></div>
+                                                <div>0.1 Gas</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-data">
+                            <div class="row-btn"><a :class="{'active':isShowRow}" @click="showRow">原始数据</a></div>
+                            <div class="row-json" v-show="isShowRow">
+                                <pre>
+                                    <code>
+                                        {
+                                            "error_code": 0,
+                                            "result": {
+                                              "header": {
+                                                "account_tree_hash": "a25e4d40d01c505ec3637be8511ec67e90000bae06dab4aeab61cbd751bd1867",
+                                                "close_time": 1587434970714671,
+                                                "consensus_value_hash": "8bf6b15f6619df493514900aa99318c1053152bfb34aa39ed111dd4b42e93149",
+                                                "fees_hash": "916daa78d264b3e2d9cff8aac84c943a834f49a62b7354d4fa228dab65515313",
+                                                "hash": "d4e2e8fca9951543cf5a0f852d2f168ea79f5786920533c710c86c1174e383ff",
+                                                "previous_hash": "fc50ab16ce7c99b88f144c7e10a8bfa29ae2f05d0b20266d39df77921d9a4b70",
+                                                "seq": 162088,
+                                                "tx_count": 73713,
+                                                "validators_hash": "4816498fd2f9417c744dc557e56c92cc2973711f7d1455f137b8c10c330e2cde",
+                                                "version": 4000
+                                              },
+                                              "ledger_length": 227
+                                            }
+                                          }
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            <footer>
+                <div class="footer">
+                    Copyright © 2020 布比区块链
+                </div>
+            </footer>
+        </template>
+    </div>
+    
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <script>
+        $(function(){
+            initEvent();
+        });
+        function initEvent(){
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    isShowRow: false,
+                    type: 1,
+                },
+                methods: {
+                    chooseType: function(type){
+                        this.type = type;
+                    },
+                    showRow: function(){
+                        this.isShowRow = !this.isShowRow;
+                    }
+                }
+            })
+        }
+    </script>
+   
+</body>
+    
+</html>
