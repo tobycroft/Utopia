@@ -39,23 +39,23 @@
                 <div class="gailan">
                     <div class="item">
                         <h3>区块高度</h3>
-                        <p>160007</p>
+                        <p>{{height}}</p>
                     </div>
                     <div class="item">
                         <h3>区块平均生成时间</h3>
-                        <p>24s</p>
+                        <p>3s</p>
                     </div>
                     <div class="item">
                         <h3>总交易数</h3>
-                        <p>7234</p>
+                        <p>{{height}}</p>
                     </div>
                     <div class="item">
                         <h3>总账户数</h3>
-                        <p>71751</p>
+                        <p>{{number}}</p>
                     </div>
                     <div class="item">
                         <h3>实时节点数</h3>
-                        <p>8</p>
+                        <p>{{nodes}}</p>
                     </div>
                 </div>
             </div>
@@ -176,34 +176,14 @@
                     <div>状态</div>
                 </div>
 
-                <div class="jiaoyi-item" v-for="mainnet as item">
+                <div class="jiaoyi-item" v-for="item in mainnet">
                     <div>{{item.time}}</div>
                     <div><a href="block_detail.html">{{item.height}}</a></div>
                     <div><span>Gasn</span></div>
                     <div><a>{{item.from_address}}</a> <label>OUT</label></div>
                     <div><a>{{item.to_address}}</a></div>
                     <div>{{item.fee}}</div>
-                    <div><a>{{item.amount}}</a></div>
-                    <div>成功</div>
-                </div>
-                <div class="jiaoyi-item">
-                    <div>2020.04.20 16:36:18</div>
-                    <div><a>16232</a></div>
-                    <div><span>Gasn</span></div>
-                    <div><a>adxSkA***5tdXet</a> <label>IN</label></div>
-                    <div><a>adxSkA***5tdXet</a></div>
-                    <div>0.1GAS</div>
-                    <div><a>9190b298913faae33790</a></div>
-                    <div>成功</div>
-                </div>
-                <div class="jiaoyi-item">
-                    <div>2020.04.20 16:36:18</div>
-                    <div><a>16232</a></div>
-                    <div><span>Gasn</span></div>
-                    <div><a>adxSkA***5tdXet</a></div>
-                    <div><a>adxSkA***5tdXet</a></div>
-                    <div>0.1GAS</div>
-                    <div><a>9190b298913faae33790</a></div>
+                    <div><a>{{item.block_hash}}</a></div>
                     <div>成功</div>
                 </div>
 
@@ -223,10 +203,13 @@
 
 <script>
     var vm = new Vue({
-        el: '.container-fluid',
+        el: '.container',
         data: {
             seen: true,
-            mainnet: []
+            mainnet: [],
+            nodes: 1,
+            number: 10,
+            height: 20,
         },
         created: function () {
             this.blocks()
@@ -244,6 +227,8 @@
                         console.log(vm.mainnet);
                         vm.mainnet = ret;
                         console.log(vm.mainnet);
+                        vm.height=vm.mainnet[0].height;
+                        vm.number=vm.mainnet[1].id;
                     }
                 });
             },
