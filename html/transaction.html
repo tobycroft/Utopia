@@ -48,34 +48,14 @@
                         <div>状态</div>
                     </div>
 
-                    <div class="jiaoyi-item">
-                        <div>2020.04.20 16:36:18</div>
-                        <div><a>16232</a></div>
+                    <div class="jiaoyi-item" v-for="item in mainnet">
+                        <div>{{item.time}}</div>
+                        <div><a @click="dt(item.id)">{{item.height}}</a></div>
                         <div><span>Gasn</span></div>
-                        <div><a>adxSkA***5tdXet</a></div>
-                        <div><a>adxSkA***5tdXet</a></div>
-                        <div>0.1GAS</div>
-                        <div><a>9190b298913faae33790</a></div>
-                        <div>成功</div>
-                    </div>
-                    <div class="jiaoyi-item">
-                        <div>2020.04.20 16:36:18</div>
-                        <div><a>16232</a></div>
-                        <div><span>Gasn</span></div>
-                        <div><a>adxSkA***5tdXet</a></div>
-                        <div><a>adxSkA***5tdXet</a></div>
-                        <div>0.1GAS</div>
-                        <div><a>9190b298913faae33790</a></div>
-                        <div>成功</div>
-                    </div>
-                    <div class="jiaoyi-item">
-                        <div>2020.04.20 16:36:18</div>
-                        <div><a>16232</a></div>
-                        <div><span>Gasn</span></div>
-                        <div><a>adxSkA***5tdXet</a></div>
-                        <div><a>adxSkA***5tdXet</a></div>
-                        <div>0.1GAS</div>
-                        <div><a>9190b298913faae33790</a></div>
+                        <div><a>{{item.from_address}}</a> <label>OUT</label></div>
+                        <div><a>{{item.to_address}}</a></div>
+                        <div>{{item.fee}}</div>
+                        <div><a>{{item.block_hash}}</a></div>
                         <div>成功</div>
                     </div>
                 </div>
@@ -88,7 +68,59 @@
         </div>
     </footer>
 
-   
+    <script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+
+    <script>
+        var vm = new Vue({
+            el: '.container',
+            data: {
+                seen: true,
+                mainnet: [],
+                mainnet_6: [],
+                nodes: 1,
+                number: 10,
+                height: 20,
+            },
+            created: function () {
+                this.blocks();
+
+                setInterval(function () {
+                    vm.blocks();
+
+                }, 3000);
+            },
+            methods: {
+                blocks() {
+                    $.ajax({
+                        //请求方式
+                        type: "get",
+                        //请求地址
+                        url: "/v1/cosmos/index/mainnet",
+                        //数据，json字符串
+                        data: {},
+                        success: function (ret) {
+                            console.log(vm.mainnet);
+                            vm.mainnet = ret;
+                            console.log(vm.mainnet);
+                            vm.height = vm.mainnet[0].height;
+                            vm.number = Math.floor(vm.mainnet[1].id / 333);
+                            vm.mainnet_6 = [];
+                            for (let i = 0; i < 6; i++) {
+                                vm.mainnet_6.push(vm.mainnet[i])
+                            }
+
+                        }
+                    });
+                },
+                dt(addr) {
+                    // alert(ddd)
+                    location.href = "block_detail.html?height=" + addr;
+                }
+            }
+        });
+
+    </script>
 </body>
     
 </html>
