@@ -178,7 +178,7 @@
 
                 <div class="jiaoyi-item" v-for="item in mainnet">
                     <div>{{item.time}}</div>
-                    <div><a href="block_detail.html">{{item.height}}</a></div>
+                    <div><a @click="dt(item.id)">{{item.height}}</a></div>
                     <div><span>Gasn</span></div>
                     <div><a>{{item.from_address}}</a> <label>OUT</label></div>
                     <div><a>{{item.to_address}}</a></div>
@@ -245,10 +245,10 @@
             },
             dt(addr) {
                 // alert(ddd)
-                location.href = "detail.html?height=" + addr;
+                location.href = "block_detail.html?height=" + addr;
             }
         }
-    })
+    });
 
 
     var myChart = echarts.init(document.getElementById('main'));

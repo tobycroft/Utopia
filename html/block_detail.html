@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name=viewport content="width=1220">
-    <meta name="format-detection" content="telphone=no, email=no" />
+    <meta name="format-detection" content="telphone=no, email=no"/>
     <title set-lang="text:invite_register"></title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -15,7 +15,7 @@
         <template>
             <header>
                 <div class="header">
-                    <div class="header-left">布比区块链浏览器</div>
+                    <div class="header-left">Wisdom区块链</div>
                     <div class="header-middle">
                         <div class="header-search">
                             <input type="text" placeholder="区块高度、交易哈希、账户地址" class="search-input">
@@ -37,55 +37,52 @@
                         <div class="main-box-header bd-bottom">
                             <div class="title">区块 ：162088</div>
                             <div class="more">
-                                <a><<前一个区块</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a>前一个区块</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a>后一个区块>></a>
                             </div>
                         </div>
                         <div class="assets-detail-cont">
                             <div class="assets-table">
                                 <div class="assets-item">
-                                    <div>区块奖励</div>
-                                    <div><span>8 Gas</span></div>
+                                    <div>区块Hash</div>
+                                    <div><span>{{detail.block_hash}}</span></div>
                                 </div>
                                 <div class="assets-item">
-                                    <div>交易数</div>
-                                    <div><span>1</span></div>
+                                    <div>交易ID</div>
+                                    <div><span>{{detail.id}}</span></div>
                                 </div>
                                 <div class="assets-item">
                                     <div>区块高度</div>
-                                    <div><span>162088</span></div>
+                                    <div><span>{{detail.height}}</span></div>
                                 </div>
+
                                 <div class="assets-item">
-                                    <div>区块大小</div>
-                                    <div><span>804 byte</span></div>
-                                </div>
-                                <div class="assets-item">
-                                    <div>区块版本</div>
-                                    <div><span>4000</span></div>
+                                    <div>交易Memo</div>
+                                    <div><span>{{detail.memo}}</span></div>
                                 </div>
                                 <div class="assets-item">
                                     <div>区块生成时间</div>
-                                    <div><span>2020.04.21 10:09:30</span></div>
+                                    <div><span>{{detail.time}}</span></div>
                                 </div>
                                 <div class="assets-item">
-                                    <div>区块哈希</div>
-                                    <div><span>d4e2e8fca9951543cf5a0f852d2f168ea79f5786920533c710c86c1174e383ff</span></div>
+                                    <div>发送地址</div>
+                                    <div><span>{{detail.from_address}}</span></div>
                                 </div>
                                 <div class="assets-item">
-                                    <div>上一区块哈希</div>
-                                    <div><span>fc50ab16ce7c99b88f144c7e10a8bfa29ae2f05d0b20266d39df77921d9a4b70</span></div>
+                                    <div>接收地址</div>
+                                    <div><span>{{detail.to_address}}</span></div>
                                 </div>
                                 <div class="assets-item">
-                                    <div>账户树哈希</div>
-                                    <div><span>a25e4d40d01c505ec3637be8511ec67e90000bae06dab4aeab61cbd751bd1867</span></div>
+                                    <div>交易数量</div>
+                                    <div><span>{{detail.amount}}</span></div>
                                 </div>
                                 <div class="assets-item">
-                                    <div>共识信息哈希</div>
-                                    <div><span>8bf6b15f6619df493514900aa99318c1053152bfb34aa39ed111dd4b42e93149</span></div>
+                                    <div>交易手续费</div>
+                                    <div><span>{{detail.fee}}</span></div>
                                 </div>
                                 <div class="assets-item">
-                                    <div>共识节点哈希</div>
-                                    <div><span>4816498fd2f9417c744dc557e56c92cc2973711f7d1455f137b8c10c330e2cde</span></div>
+                                    <div>交易链</div>
+                                    <div><span>{{detail.chain_id}}</span></div>
                                 </div>
                             </div>
                         </div>
@@ -94,100 +91,93 @@
                             <div class="row-json" v-show="isShowRow">
                                 <pre>
                                     <code>
-                                        {
-                                            "error_code": 0,
-                                            "result": {
-                                              "header": {
-                                                "account_tree_hash": "a25e4d40d01c505ec3637be8511ec67e90000bae06dab4aeab61cbd751bd1867",
-                                                "close_time": 1587434970714671,
-                                                "consensus_value_hash": "8bf6b15f6619df493514900aa99318c1053152bfb34aa39ed111dd4b42e93149",
-                                                "fees_hash": "916daa78d264b3e2d9cff8aac84c943a834f49a62b7354d4fa228dab65515313",
-                                                "hash": "d4e2e8fca9951543cf5a0f852d2f168ea79f5786920533c710c86c1174e383ff",
-                                                "previous_hash": "fc50ab16ce7c99b88f144c7e10a8bfa29ae2f05d0b20266d39df77921d9a4b70",
-                                                "seq": 162088,
-                                                "tx_count": 73713,
-                                                "validators_hash": "4816498fd2f9417c744dc557e56c92cc2973711f7d1455f137b8c10c330e2cde",
-                                                "version": 4000
-                                              },
-                                              "ledger_length": 227
-                                            }
-                                          }
+                                       {{detail}}
                                     </code>
                                 </pre>
-                            </div>
                         </div>
                     </div>
-                    <div class="main-box">
-                        <div class="main-box-header bd-bottom">
-                            <div class="title">包含的交易</div>
-                        </div>
-                        <div class="jiaoyi">
-                            <div class="jiaoyi-item">
-                                <div>时间</div>
-                                <div>所在区块</div>
-                                <div>交易类型</div>
-                                <div>源用户</div>
-                                <div>目的账户</div>
-                                <div>数量</div>
-                                <div>交易哈希</div>
-                                <div>状态</div>
-                            </div>
-        
-                            <div class="jiaoyi-item">
-                                <div>2020.04.20 16:36:18</div>
-                                <div>16232</div>
-                                <div><span>Gasn</span></div>
-                                <div><a>adxSkA***5tdXet</a></div>
-                                <div><a>adxSkA***5tdXet</a></div>
-                                <div>0.1GAS</div>
-                                <div><a>9190b298913faae33790</a></div>
-                                <div>成功</div>
-                            </div>
-                            <div class="jiaoyi-item">
-                                <div>2020.04.20 16:36:18</div>
-                                <div>16232</div>
-                                <div><span>Gasn</span></div>
-                                <div><a>adxSkA***5tdXet</a></div>
-                                <div><a>adxSkA***5tdXet</a></div>
-                                <div>0.1GAS</div>
-                                <div><a>9190b298913faae33790</a></div>
-                                <div>成功</div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
                 </div>
-            </section>
-            <footer>
-                <div class="footer">
-                    Copyright © 2020 布比区块链
-                </div>
-            </footer>
-        </template>
-    </div>
-    
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
-    <script>
-        $(function(){
-            initEvent();
-        });
-        function initEvent(){
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    isShowRow: false,
-                },
-                methods: {
-                    showRow: function(){
-                        this.isShowRow = !this.isShowRow;
-                    }
-                }
-            })
+
+            </div>
+        </section>
+        <footer>
+            <div class="footer">
+                Copyright © 2020 Wisdom区块链
+            </div>
+        </footer>
+    </template>
+</div>
+
+<script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+
+<script>
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
         }
-    </script>
-   
+        return (false);
+    }
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            seen: true,
+            detail: {}
+        },
+        created: function () {
+
+            this.blocks()
+        },
+        methods: {
+            blocks() {
+                $.ajax({
+                    //请求方式
+                    type: "get",
+                    //请求地址
+                    url: "/v1/cosmos/index/detail?height=" + getQueryVariable("height"),
+                    //数据，json字符串
+                    data: {},
+                    success: function (ret) {
+                        console.log(vm.mainnet);
+                        vm.detail = ret;
+                        console.log(vm.mainnet);
+                    }
+                });
+            },
+            dt(addr) {
+                // alert(ddd)
+                location.href = "detail.html?height=" + addr;
+            }
+        }
+    });
+
+
+
+    $(function () {
+        initEvent();
+    });
+
+    function initEvent() {
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isShowRow: false,
+            },
+            methods: {
+                showRow: function () {
+                    this.isShowRow = !this.isShowRow;
+                }
+            }
+        })
+    }
+</script>
+
 </body>
-    
+
 </html>
