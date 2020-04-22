@@ -13,7 +13,7 @@
 <body>
 <header>
     <div class="header">
-        <div class="header-left">布比区块链浏览器</div>
+        <div class="header-left">Wisdom区块链浏览器</div>
         <div class="header-middle">
             <div class="header-search">
                 <input type="text" placeholder="区块高度、交易哈希、账户地址" class="search-input">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="item">
                         <h3>区块平均生成时间</h3>
-                        <p>3s</p>
+                        <p>5s</p>
                     </div>
                     <div class="item">
                         <h3>总交易数</h3>
@@ -69,13 +69,13 @@
                     <div data-v-18b1df0a="" class="block-cont">
                         <div data-v-18b1df0a="" class="block-list">
                             <div data-v-18b1df0a="">
-                                <div data-v-18b1df0a="" class="block-list-item">
+                                <div data-v-18b1df0a="" class="block-list-item" v-for="item in mainnet_6">
                                     <div data-v-18b1df0a="" class="top">
-                                        <div data-v-18b1df0a="" class="hover-pointer">#160021</div>
+                                        <div data-v-18b1df0a="" class="hover-pointer">#{{item.id}}</div>
                                     </div>
                                     <div data-v-18b1df0a="" class="btm">
-                                        <div data-v-18b1df0a="" class="tx-num">1 Txns</div>
-                                        <div data-v-18b1df0a="" class="time">10s ago</div>
+                                        <div data-v-18b1df0a="" class="tx-num">1 token</div>
+                                        <div data-v-18b1df0a="" class="time">3s ago</div>
                                     </div>
                                     <div data-v-18b1df0a="" class="item-before">
                                         <div data-v-18b1df0a="" class="line"></div>
@@ -193,7 +193,7 @@
 </section>
 <footer>
     <div class="footer">
-        Copyright © 2020 睿区块链
+        Copyright © 2020 Wisdom区块链
     </div>
 </footer>
 
@@ -207,12 +207,18 @@
         data: {
             seen: true,
             mainnet: [],
+            mainnet_6: [],
             nodes: 1,
             number: 10,
             height: 20,
         },
         created: function () {
-            this.blocks()
+            this.blocks();
+
+            setInterval(function () {
+                vm.blocks();
+
+            }, 3000);
         },
         methods: {
             blocks() {
@@ -227,8 +233,13 @@
                         console.log(vm.mainnet);
                         vm.mainnet = ret;
                         console.log(vm.mainnet);
-                        vm.height=vm.mainnet[0].height;
-                        vm.number=vm.mainnet[1].id;
+                        vm.height = vm.mainnet[0].height;
+                        vm.number = Math.floor(vm.mainnet[1].id / 333);
+                        vm.mainnet_6 = [];
+                        for (let i = 0; i < 6; i++) {
+                            vm.mainnet_6.push(vm.mainnet[i])
+                        }
+
                     }
                 });
             },
