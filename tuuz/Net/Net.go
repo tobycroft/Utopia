@@ -53,6 +53,22 @@ func Rpc(url string, postData map[string]interface{}, username, password string)
 	}
 }
 
+func PostJson(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (int, interface{}, error) {
+	headers = map[string]string{
+		"Content-Type": "application/json",
+	}
+	req := Request()
+	req.SetHeaders(headers)
+	req.SetCookies(cookies)
+	ret, err := req.Post(url+"?"+Http_build_query(queries), postData)
+	body, err := ret.Body()
+	if err != nil {
+		return 500, "", err
+	} else {
+		return 0, string(body), err
+	}
+}
+
 func Post(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (int, interface{}, error) {
 	// 链式操作
 	req := Request()
