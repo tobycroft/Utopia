@@ -18,6 +18,3 @@ it needs to run under windows server version
 - Seal:null
 
 # Contact
-
-- 火线兔的宇宙飞船: [94537310]
-
