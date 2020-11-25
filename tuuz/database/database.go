@@ -19,18 +19,18 @@ func init() {
 func DbConfig() *gorose.Config {
 	var conf gorose.Config
 	conf.Driver = "mysql"
-	conf.SetMaxIdleConns = 2
-	conf.SetMaxOpenConns = 20
+	conf.SetMaxIdleConns = 20
+	conf.SetMaxOpenConns = 300
 	conf.Prefix = ""
 	conf.Dsn = dsn()
 	return &conf
 }
 
 func dsn() string {
-	dbname := "cosmos_test"
-	dbuser := "cosmos"
-	dbpass := "cosmos"
-	dbhost := "10.0.0.170"
+	dbname := "ddddd"
+	dbuser := "ddddd"
+	dbpass := "dddddd"
+	dbhost := "10.0.0.1"
 	conntype := "tcp"
 	dbport := "3306"
 	charset := "utf8mb4"

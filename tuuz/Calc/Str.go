@@ -45,8 +45,16 @@ func Any2String(any interface{}) string {
 	case nil:
 		str = ""
 
+	case bool:
+		tmp := any.(bool)
+		if tmp == true {
+			return "true"
+		} else {
+			return "false"
+		}
+
 	default:
-		fmt.Println(reflect.TypeOf(any))
+		fmt.Println("any2string", any, reflect.TypeOf(any))
 		str = ""
 	}
 	return str
@@ -63,4 +71,23 @@ func String2Int64(str string) (int64, error) {
 func String2Float64(str string) (float64, error) {
 	float, err := strconv.ParseFloat(str, 64)
 	return float, err
+}
+
+func PhoneSafe(phone string) string {
+	old := ""
+	for k, v := range phone {
+		if k >= 3 && k <= 6 {
+			old = old + string(v)
+		}
+	}
+	phone = strings.Replace(phone, old, "****", -1)
+	return phone
+}
+
+func Interface2String(inter []interface{}) []string {
+	strs := []string{}
+	for it := range inter {
+		strs = append(strs, Any2String(it))
+	}
+	return strs
 }

@@ -8,6 +8,10 @@ import (
 )
 
 func Db() gorose.IOrm {
+	return DB()
+}
+
+func DB() gorose.IOrm {
 	return database.Database.NewOrm()
 }
 

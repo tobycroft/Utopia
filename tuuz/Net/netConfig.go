@@ -2,7 +2,7 @@ package Net
 
 import "strings"
 
-const cookie_tag = "sid,JSESSIONID,DedeUserID,DedeUserID__ckMd5,SESSDATA,bili_jct,sid"
+const cookie_tag = "sid,JSESSIONID,DedeUserID,DedeUserID__ckMd5,SESSDATA,bili_jct,_dfcaptcha,rpdid,INTVER,_uuid,buvid3,buvid2,LIVE_BUVID,rpdid"
 
 func CookieTagChecker(cookie_key string) bool {
 	if cookie_tag == "" {

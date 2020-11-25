@@ -1,41 +1,33 @@
 package Net
 
 import (
+	"crypto/tls"
 	"fmt"
 	"main.go/tuuz/Array"
 	"main.go/tuuz/Calc"
 	"main.go/tuuz/Log"
 	"main.go/tuuz/Redis"
+	"net"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 )
 
-/*
-headers = map[string]string{
-"User-Agent":    "Sublime",
-"Authorization": "Bearer access_token",
-"Content-Type":  "application/json",
+var transport *http.Transport
+
+var dailer = &net.Dialer{
+	Timeout:   5 * time.Second,
+	KeepAlive: 0 * time.Second,
+	DualStack: true,
 }
 
-cookies = map[string]string{
-"userId":    "12",
-"loginTime": "15045682199",
+func init() {
+	transport = &http.Transport{
+		DialContext:  dailer.DialContext,
+		MaxIdleConns: 100,
+	}
 }
-
-queries = map[string]string{
-"page": "2",
-"act":  "update",
-}
-
-postData = map[string]interface{}{
-"name":      "mike",
-"age":       24,
-"interests": []string{"basketball", "reading", "coding"},
-"isAdmin":   true,
-}
-*/
 
 func Rpc(url string, postData map[string]interface{}, username, password string) (string, error) {
 	req := Request()
@@ -43,7 +35,9 @@ func Rpc(url string, postData map[string]interface{}, username, password string)
 	req.SetHeaders(header)
 	req.SetBasicAuth(username, password)
 	req.SetTimeout(5 * time.Second)
-
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Post(url, postData)
 	body, err := ret.Content()
 	if err != nil {
@@ -53,55 +47,43 @@ func Rpc(url string, postData map[string]interface{}, username, password string)
 	}
 }
 
-func PostJson(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (int, interface{}, error) {
-	headers = map[string]string{
-		"Content-Type": "application/json",
-	}
-	req := Request()
-	req.SetHeaders(headers)
-	req.SetCookies(cookies)
-	ret, err := req.Post(url+"?"+Http_build_query(queries), postData)
-	body, err := ret.Body()
-	if err != nil {
-		return 500, "", err
-	} else {
-		return 0, string(body), err
-	}
-}
-
-func Post(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (int, interface{}, error) {
+func Post(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (string, error) {
 	// 链式操作
 	req := Request()
 	req.SetHeaders(headers)
 	req.SetCookies(cookies)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Post(url+"?"+Http_build_query(queries), postData)
-	body, err := ret.Body()
 	if err != nil {
-		return 500, "", err
-	} else {
-		return 0, string(body), err
+		return "", err
 	}
+	return ret.Content()
 }
 
-func PostCookie(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (int, interface{}, map[string]interface{}, error) {
+func PostCookie(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookies map[string]string) (string, map[string]interface{}, error) {
 	req := Request()
 	req.SetHeaders(headers)
 	req.SetCookies(cookies)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Post(url+"?"+Http_build_query(queries), postData)
-	body, err := ret.Body()
+	body, err := ret.Content()
 
 	cookie_arr := CookieHandler(ret.Cookies())
 	//fmt.Println(cookie_arr)
 	if err != nil {
-		return 500, "", cookie_arr, err
+		return "", cookie_arr, err
 	} else {
-		return 0, string(body), cookie_arr, err
+		return body, cookie_arr, err
 	}
 }
 
-func PostCookieAuto(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, ident string) (float64, interface{}, error) {
+func PostCookieAuto(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, ident string) (string, error) {
 	req := Request()
 	cookies, err := CookieSelector(ident)
 	cook := Array.Mapinterface2MapString(cookies)
@@ -109,19 +91,22 @@ func PostCookieAuto(url string, queries map[string]interface{}, postData map[str
 	req.SetHeaders(headers)
 	req.SetCookies(cook)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Post(url+"?"+Http_build_query(queries), postData)
-	body, err := ret.Body()
+	body, err := ret.Content()
 
 	cookie_arr := CookieHandler(ret.Cookies())
 	CookieUpdater(cookie_arr, ident)
 	if err != nil {
-		return 500, "", err
+		return "", err
 	} else {
-		return 0, string(body), err
+		return body, err
 	}
 }
 
-func PostCookieManual(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookie map[string]interface{}, ident string) (float64, interface{}, error) {
+func PostCookieManual(url string, queries map[string]interface{}, postData map[string]interface{}, headers map[string]string, cookie map[string]interface{}, ident string) (string, error) {
 	req := Request()
 	CookieUpdater(cookie, ident)
 	cookies, err := CookieSelector(ident)
@@ -130,71 +115,63 @@ func PostCookieManual(url string, queries map[string]interface{}, postData map[s
 	req.SetHeaders(headers)
 	req.SetCookies(cook)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Post(url+"?"+Http_build_query(queries), postData)
-	body, err := ret.Body()
+	body, err := ret.Content()
 
 	cookie_arr := CookieHandler(ret.Cookies())
 	CookieUpdater(cookie_arr, ident)
 	if err != nil {
-		return 500, "", err
+		return "", err
 	} else {
-		return 0, string(body), err
+		return body, err
 	}
 }
 
-/*
-headers = map[string]string{
-"User-Agent":    "Sublime",
-"Authorization": "Bearer access_token",
-"Content-Type":  "application/json",
-}
-
-cookies = map[string]string{
-"userId":    "12",
-"loginTime": "15045682199",
-}
-
-queries = map[string]string{
-"page": "2",
-"act":  "update",
-}
-*/
-func Get(url string, queries map[string]interface{}, headers map[string]string, cookies map[string]string) (float64, interface{}, error) {
+func Get(url string, queries map[string]interface{}, headers map[string]string, cookies map[string]string) (string, error) {
 	req := Request()
 	req.SetHeaders(headers)
 	req.SetCookies(cookies)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Get(url, queries)
 	if err != nil {
 		fmt.Println(err)
-		return 500, "", err
+		return "", err
 	}
-	body, err := ret.Body()
+	body, err := ret.Content()
 
 	if err != nil {
-		return 500, "", err
+		return "", err
 	} else {
-		return 0, string(body), err
+		return body, err
 	}
 }
 
-func GetCookie(url string, queries map[string]interface{}, headers map[string]string, cookies map[string]string) (float64, interface{}, map[string]interface{}, error) {
+func GetCookie(url string, queries map[string]interface{}, headers map[string]string, cookies map[string]string) (string, map[string]interface{}, error) {
 	req := Request()
 	req.SetHeaders(headers)
 	req.SetCookies(cookies)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Get(url, queries)
-	body, err := ret.Body()
+	body, err := ret.Content()
 	cookie_arr := CookieHandler(ret.Cookies())
 	//fmt.Println(cookie_arr)
 	if err != nil {
-		return 500, "", cookie_arr, err
+		return "", cookie_arr, err
 	} else {
-		return 0, string(body), cookie_arr, err
+		return body, cookie_arr, err
 	}
 }
 
-func GetCookieAuto(url string, queries map[string]interface{}, headers map[string]string, ident string) (float64, interface{}, error) {
+func GetCookieAuto(url string, queries map[string]interface{}, headers map[string]string, ident string) (string, error) {
 	req := Request()
 	cookies, err := CookieSelector(ident)
 	cook := Array.Mapinterface2MapString(cookies)
@@ -202,25 +179,28 @@ func GetCookieAuto(url string, queries map[string]interface{}, headers map[strin
 	req.SetHeaders(headers)
 	req.SetCookies(cook)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Get(url, queries)
 	if err != nil {
 		fmt.Println(err)
-		return 500, "", err
+		return "", err
 	}
-	body, err := ret.Body()
+	body, err := ret.Content()
 	if err != nil {
-		return 500, "", err
+		return "", err
 	}
 	cookie_arr := CookieHandler(ret.Cookies())
 	CookieUpdater(cookie_arr, ident)
 	if err != nil {
-		return 500, "", err
+		return "", err
 	} else {
-		return 0, string(body), err
+		return body, err
 	}
 }
 
-func GetCookieManual(url string, queries map[string]interface{}, headers map[string]string, cookie map[string]interface{}, ident string) (float64, interface{}, error) {
+func GetCookieManual(url string, queries map[string]interface{}, headers map[string]string, cookie map[string]interface{}, ident string) (string, error) {
 	req := Request()
 	CookieUpdater(cookie, ident)
 	cookies, err := CookieSelector(ident)
@@ -229,18 +209,21 @@ func GetCookieManual(url string, queries map[string]interface{}, headers map[str
 	req.SetHeaders(headers)
 	req.SetCookies(cook)
 	req.SetTimeout(5 * time.Second)
+	req.DisableKeepAlives(true)
+	req.SetTLSClient(&tls.Config{InsecureSkipVerify: true})
+	req.Transport(transport)
 	ret, err := req.Get(url, queries)
 	if err != nil {
 		fmt.Println(err)
-		return 500, "", err
+		return "", err
 	}
-	body, err := ret.Body()
+	body, err := ret.Content()
 	cookie_arr := CookieHandler(ret.Cookies())
 	CookieUpdater(cookie_arr, ident)
 	if err != nil {
-		return 500, "", err
+		return "", err
 	} else {
-		return 0, string(body), err
+		return body, err
 	}
 }
 
